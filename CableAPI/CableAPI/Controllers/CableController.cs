@@ -16,7 +16,7 @@ namespace CableAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("/GetCables")]
         public IEnumerable<Cable> Get()
         {
             // Replace this with your logic to fetch cables from the database
@@ -26,7 +26,7 @@ namespace CableAPI.Controllers
             return cables;
         }
 
-        [HttpPost]
+        [HttpPost("/CreateCable")]
         public IActionResult Post([FromBody] Cable cable)
         {
             // Replace this with your logic to save the 'cable' object to the database
@@ -39,7 +39,7 @@ namespace CableAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("/UpdateCable/{id}")]
         public IActionResult Put(string id, [FromBody] Cable updatedCable)
         {
             // Replace this with your logic to update the cable with data from 'updatedCable'
@@ -52,7 +52,7 @@ namespace CableAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/DeleteCable/{id}")]
         public IActionResult Delete(string id)
         {
             // Replace this with your logic to delete the cable from the database
