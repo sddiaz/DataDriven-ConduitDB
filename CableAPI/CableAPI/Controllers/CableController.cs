@@ -19,11 +19,9 @@ namespace CableAPI.Controllers
         [HttpGet("/GetCables")]
         public IEnumerable<Cable> Get()
         {
-            // Replace this with your logic to fetch cables from the database
-            var cables = new List<Cable>();
-            // Implement logic to fetch cables from the database
-            // Example: cables = _cableRepository.GetAllCables();
-            return cables;
+            var sql = @"SELECT *
+                        FROM dbo.CableDB";
+            return SqlDataAccess.LoadData<Cable>(sql);
         }
 
         [HttpPost("/CreateCable")]
