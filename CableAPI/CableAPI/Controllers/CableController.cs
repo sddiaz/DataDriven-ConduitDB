@@ -18,15 +18,40 @@ namespace CableAPI.Controllers
         }
 
         [HttpGet("/GetCables")]
-        public IEnumerable<Cable> Get()
+        public IEnumerable<BaseCable> GetCables()
         {
-            var sql = @"SELECT * FROM TableName ORDER BY ID OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;";
-            return SqlDataAccess.LoadData<Cable>(sql);
+            var sql = @"SELECT ID, OtiGUID, FromBus, ToBus 
+            FROM dbo.Cable 
+            ORDER BY ID 
+            OFFSET 10 ROWS 
+            FETCH NEXT 10 ROWS ONLY;";
+            return SqlDataAccess.LoadData<BaseCable>(sql, null);
         }
 
+        [HttpGet("/GetCable/{ID}")]
+        public IActionResult GetCable(string ID)
+        {
+            try
+            {
+                var cable = SqlDataAccess.LoadData<Cable>(null, ID).FirstOrDefault();
+
+                if (cable == null)
+                {
+                    return NotFound("Cable not found");
+                }
+
+                return Ok(cable);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request: " + ex);
+            }
+        }
+
+
         [HttpPost("/CreateCable")]
-        public IActionResult Post(
-            string id, string phaseValue, bool inService, string inServiceState,
+        public IActionResult CreateCable(
+            string id, string otiGuid, string phaseValue, bool inService, string inServiceState,
             string description, string phase, int numberOfWires, string fromBus,
             string toBus, int frequency, string caConductorType, string caInstallation,
             string caRatedkV, string caPercentClass, string caSource, string caInsulation,
@@ -35,11 +60,11 @@ namespace CableAPI.Controllers
             string cableLengthUnit, string tolerance, int minTempValue, int maxTempValue,
             double rPosValue, double xPosValue, double yPosValue, double rZeroValue,
             double xZeroValue, double yZeroValue, double impedanceUnits,
-            double ohmsPerLengthValue, double ohmsPerLengthUnit, string commentText,
-            string otiGuid)
-        {
+            double ohmsPerLengthValue, double ohmsPerLengthUnit, string commentText)
+        { 
             Cable data = new Cable{
-                ID = id, 
+                ID = id,
+                OtiGUID = otiGuid,
                 PhaseValue = phaseValue, 
                 InService = inService, 
                 InServiceState = inServiceState, 
@@ -75,25 +100,24 @@ namespace CableAPI.Controllers
                 ImpedanceUnits = impedanceUnits, 
                 OhmsPerLengthValue = ohmsPerLengthValue, 
                 OhmsPerLengthUnit = ohmsPerLengthUnit, 
-                CommentText = commentText, 
-                OtiGUID = otiGuid }
+                CommentText = commentText}
             ;
-            var sql = @"INSERT INTO dbo.CableDB 
-            (ID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
+            var sql = @"INSERT INTO dbo.Cable 
+            (ID, OtiGUID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
             FromBus, ToBus, Frequency, CA_ConductorType, CA_Installation, CA_RatedkV, 
             CA_PercentClass, CA_Source, CA_Insulation, CA_NoofConductors, CabSize, 
             CA_Length, CA_UnitSystem, CA_Temperature, CA_TemperatureCode, LengthValue, 
             CableLengthUnit, Tolerance, MinTempValue, MaxTempValue, RPosValue, XPosValue, 
             YPosValue, RZeroValue, XZeroValue, YZeroValue, ImpedanceUnits, 
-            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText, OtiGUID) 
+            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText) 
             VALUES 
-            (@ID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
+            (@ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
             @FromBus, @ToBus, @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
             @CA_PercentClass, @CA_Source, @CA_Insulation, @CA_NoofConductors, @CabSize, 
             @CA_Length, @CA_UnitSystem, @CA_Temperature, @CA_TemperatureCode, @LengthValue, 
             @CableLengthUnit, @Tolerance, @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, 
             @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
-            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText, @OtiGUID);";
+            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText);";
 
             SqlDataAccess.SaveData(sql, data);
             return Ok(); 
@@ -101,9 +125,9 @@ namespace CableAPI.Controllers
         }
 
         [HttpPut("/UpdateCable/{id}")]
-        public IActionResult Put(string ID, [FromBody] Cable updatedCable)
+        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
         {
-                var sql = @"UPDATE dbo.CableDB 
+                var sql = @"UPDATE dbo.Cable 
                     SET PhaseValue = @PhaseValue, 
                     InService = @InService, 
                     InServiceState = @InServiceState, 
@@ -140,7 +164,6 @@ namespace CableAPI.Controllers
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
                     CommentText = @CommentText, 
-                    OtiGUID = @OtiGUID, 
                 WHERE ID = @ID;";
                 SqlDataAccess.SaveData(sql, new 
                 { 
@@ -188,7 +211,7 @@ namespace CableAPI.Controllers
         }
 
         [HttpDelete("/DeleteCable/{id}")]
-        public IActionResult Delete(string ID)
+        public IActionResult DeleteCable(string ID)
         {
             string sql = @"DELETE FROM dbo.Cable WHERE ID = @ID;";
             SqlDataAccess.SaveData(sql, new { ID });

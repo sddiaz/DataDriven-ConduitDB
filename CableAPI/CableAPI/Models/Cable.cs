@@ -3,6 +3,7 @@ namespace CableAPI.Models
     public class Cable
     {
         public string? ID { get; set; } // Export/Import
+        public string? OtiGUID { get; set; } // Export/Import
         public string? PhaseValue { get; set; } // Export/Import
         public bool? InService { get; set; } // Export only
         public string? InServiceState { get; set; } // Export only
@@ -39,7 +40,6 @@ namespace CableAPI.Models
         public double? OhmsPerLengthValue { get; set; } // Export only
         public double? OhmsPerLengthUnit { get; set; } // Export only
         public string? CommentText { get; set; } // Export/Import
-        public string? OtiGUID { get; set; } // Export/Import
 
         public Cable() { }
 

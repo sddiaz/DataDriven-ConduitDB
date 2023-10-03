@@ -22,13 +22,22 @@ namespace CableAPI.Controllers
             return connectionString;
         }
         // LoadData is used for GET Requests
-        public static List<T> LoadData<T>(string sql)
+        public static List<T> LoadData<T>(string sql, string ID)
         {
             using (IDbConnection connection = new SQL_Connection(GetConnectionString()))
             {
-
-                return connection.Query<T>(sql).ToList();
-
+                if (ID != null)
+                {
+                    // Correct the SQL query to use parameterized query
+                    sql = @"SELECT * FROM dbo.Cable WHERE ID = @ID;";
+                    var parameters = new { ID };
+                    return connection.Query<T>(sql, parameters).ToList();
+                }
+                else
+                {
+                    // If ID is null, return all records
+                    return connection.Query<T>(sql, null).ToList();
+                }
             }
         }
         // SaveData is used for POST Requests
