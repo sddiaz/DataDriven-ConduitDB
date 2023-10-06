@@ -28,7 +28,6 @@ namespace CableAPI.Controllers
             {
                 if (ID != null)
                 {
-                    // Correct the SQL query to use parameterized query
                     sql = @"SELECT * FROM dbo.Cable WHERE ID = @ID;";
                     var parameters = new { ID };
                     return connection.Query<T>(sql, parameters).ToList();

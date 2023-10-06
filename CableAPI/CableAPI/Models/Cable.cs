@@ -57,6 +57,7 @@ namespace CableAPI.Models
             string otiGuid)
         {
             ID = id;
+            OtiGUID = otiGuid;
             PhaseValue = phaseValue;
             InService = inService;
             InServiceState = inServiceState;
@@ -93,7 +94,6 @@ namespace CableAPI.Models
             OhmsPerLengthValue = ohmsPerLengthValue;
             OhmsPerLengthUnit = ohmsPerLengthUnit;
             CommentText = commentText;
-            OtiGUID = otiGuid;
         }
     }
 }
