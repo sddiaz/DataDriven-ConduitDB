@@ -20,11 +20,8 @@ namespace CableAPI.Controllers
         [HttpGet("/GetCables")]
         public IEnumerable<BaseCable> GetCables()
         {
-            var sql = @"SELECT ID, OtiGUID, FromBus, ToBus 
-            FROM dbo.Cable 
-            ORDER BY ID 
-            OFFSET 10 ROWS 
-            FETCH NEXT 10 ROWS ONLY;";
+            var sql = @"SELECT TOP 10 ID, OtiGUID, FromBus, ToBus   
+            FROM dbo.Cable;";
             return SqlDataAccess.LoadData<BaseCable>(sql, null);
         }
 
@@ -163,11 +160,12 @@ namespace CableAPI.Controllers
                     ImpedanceUnits = @ImpedanceUnits, 
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
-                    CommentText = @CommentText, 
-                WHERE ID = @ID;";
+                    CommentText = @CommentText 
+                    WHERE ID = @ID;";
                 SqlDataAccess.SaveData(sql, new 
                 { 
-                    ID = ID, 
+                    ID = updatedCable.ID,
+                    OtiGUID = updatedCable.OtiGUID,
                     PhaseValue = updatedCable.PhaseValue,
                     InService = updatedCable.InService,
                     InServiceState = updatedCable.InServiceState,
@@ -204,18 +202,25 @@ namespace CableAPI.Controllers
                     OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
                     OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
                     CommentText = updatedCable.CommentText,
-                    OtiGUID = updatedCable.OtiGUID
                 });
-            
-            return Ok();
+
+            return Ok("Update Successful");
         }
 
         [HttpDelete("/DeleteCable/{id}")]
-        public IActionResult DeleteCable(string ID)
+        public IActionResult DeleteCable(string id)
         {
             string sql = @"DELETE FROM dbo.Cable WHERE ID = @ID;";
-            SqlDataAccess.SaveData(sql, new { ID });
-            return Ok();
+            int rowsAffected = SqlDataAccess.SaveData(sql, new { ID = id });
+
+            if (rowsAffected > 0)
+            {
+                return Ok($"Cable with ID: {id} was deleted successfully.");
+            }
+            else
+            {
+                return NotFound("Cable with the specified ID was not found.");
+            }
         }
     }
 }
