@@ -40,7 +40,7 @@ namespace CableAPI.Models
         public double? OhmsPerLengthValue { get; set; } // Export only
         public double? OhmsPerLengthUnit { get; set; } // Export only
         public string? CommentText { get; set; } // Export/Import
-
+        public DateTime? Created_Date { get; }
         public Cable() { }
 
         public Cable(
@@ -54,7 +54,7 @@ namespace CableAPI.Models
             double rPosValue, double xPosValue, double yPosValue, double rZeroValue,
             double xZeroValue, double yZeroValue, double impedanceUnits,
             double ohmsPerLengthValue, double ohmsPerLengthUnit, string commentText,
-            string otiGuid)
+            string otiGuid, DateTime created_Date)
         {
             ID = id;
             OtiGUID = otiGuid;
@@ -94,6 +94,7 @@ namespace CableAPI.Models
             OhmsPerLengthValue = ohmsPerLengthValue;
             OhmsPerLengthUnit = ohmsPerLengthUnit;
             CommentText = commentText;
+            Created_Date = created_Date;
         }
     }
 }

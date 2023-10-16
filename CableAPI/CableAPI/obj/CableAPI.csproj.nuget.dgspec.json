@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\salty\\OneDrive\\Desktop\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj": {}
+    "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\salty\\OneDrive\\Desktop\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj": {
+    "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\salty\\OneDrive\\Desktop\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj",
+        "projectUniqueName": "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj",
         "projectName": "CableAPI",
-        "projectPath": "C:\\Users\\salty\\OneDrive\\Desktop\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj",
-        "packagesPath": "C:\\Users\\salty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\salty\\OneDrive\\Desktop\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\obj\\",
+        "projectPath": "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj",
+        "packagesPath": "C:\\Users\\cdbdba\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\salty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\cdbdba\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,6 +47,10 @@
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -81,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

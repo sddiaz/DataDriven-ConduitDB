@@ -18,11 +18,25 @@ namespace CableAPI.Controllers
         }
 
         [HttpGet("/GetCables")]
-        public IEnumerable<BaseCable> GetCables()
+        public IEnumerable<BaseCable> GetCables(int start)
         {
-            var sql = @"SELECT TOP 10 ID, OtiGUID, FromBus, ToBus   
-            FROM dbo.Cable;";
-            return SqlDataAccess.LoadData<BaseCable>(sql, null);
+            // Number of rows to fetch
+            int pageSize = 10; // Adjust as needed
+
+            var sql = @"
+            SELECT ID, OtiGUID, FromBus, ToBus   
+            FROM dbo.Cable 
+            ORDER BY ID 
+            OFFSET @Start ROWS 
+            FETCH NEXT @PageSize ROWS ONLY;";
+
+            var parameters = new
+            {
+                Start = start,
+                PageSize = pageSize
+            };
+
+            return SqlDataAccess.LoadData<BaseCable>(sql, parameters.ToString());
         }
 
         [HttpGet("/GetCable/{ID}")]
@@ -116,13 +130,20 @@ namespace CableAPI.Controllers
             @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
             @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText);";
 
-            SqlDataAccess.SaveData(sql, data);
-            return Ok(); 
+            try
+            {
+                SqlDataAccess.SaveData(sql, data);
+                return Ok("Cable created Successfully");
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("An error occured while creating the cable: " + ex.Message);
+            }
             
         }
 
         [HttpPut("/UpdateCable/{id}")]
-        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
+        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable) 
         {
                 var sql = @"UPDATE dbo.Cable 
                     SET PhaseValue = @PhaseValue, 
@@ -160,7 +181,7 @@ namespace CableAPI.Controllers
                     ImpedanceUnits = @ImpedanceUnits, 
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
-                    CommentText = @CommentText 
+                    CommentText = @CommentText,
                     WHERE ID = @ID;";
                 SqlDataAccess.SaveData(sql, new 
                 { 
