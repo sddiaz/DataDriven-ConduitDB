@@ -33,21 +33,11 @@ The API uses two models: `BaseCable` and `Cable`.
 
 - `Cable`: Represents detailed cable information, including additional properties like PhaseValue, InService, Description, and more.
 
-## Getting Started
+## Usage
 
-To get started with the Data Driven Cable API, follow these steps:
+- This API will be running on MKEC's internal network 24/7. Anyone connected to the network should be able to access it via the proper browser URLs.
+- In order to properly utilize this API, one must download the MKEC Cable Manager Application here: (insert link). This will allow you to access the database. 
 
-1. **Clone the Repository**: Clone this repository to your local machine.
-
-2. **Set Up the Connection String**: Follow the instructions in the [Connection String](#connection-string) section to configure the database connection.
-
-3. **Run the API**: Build and run the API on your local environment.
-
-4. **Access the Endpoints**: Use API endpoints to interact with the cable database. Refer to the [Controller](#controller) section for available endpoints.
-
-## Connection String
-
-To configure the database connection, set the connection string. You can use environment variables or a configuration file. Ensure sensitive information like the connection string is not stored in version control.
 
 ## Contact Information
 
