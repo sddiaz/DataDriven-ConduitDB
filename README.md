@@ -19,7 +19,7 @@ The Data Driven Cable API is designed to manage cable data for MKEC's database. 
 
 The main controller in the API is the `CableController`, which contains the following endpoints:
 
-- **GET /GetCables**: Retrieve a paginated list of cables.
+- **GET /GetCables/{start}**: Retrieve a paginated list of cables. This endpoint returns the first 10 cables starting at index {start}. Ex: For start = 0, it returns cables 0-9. 
 - **GET /GetCable/{ID}**: Retrieve details of a specific cable by ID.
 - **POST /CreateCable**: Create a new cable entry.
 - **PUT /UpdateCable/{ID}**: Update an existing cable by ID.
