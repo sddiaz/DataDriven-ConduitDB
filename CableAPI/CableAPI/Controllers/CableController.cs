@@ -61,57 +61,49 @@ namespace CableAPI.Controllers
 
 
         [HttpPost("/CreateCable")]
-        public IActionResult CreateCable(
-            string id, string otiGuid, string phaseValue, bool inService, string inServiceState,
-            string description, string phase, int numberOfWires, string fromBus,
-            string toBus, int frequency, string caConductorType, string caInstallation,
-            string caRatedkV, string caPercentClass, string caSource, string caInsulation,
-            string caNoofConductors, int cabSize, string caLength, string caUnitSystem,
-            string caTemperature, string caTemperatureCode, string lengthValue,
-            string cableLengthUnit, string tolerance, int minTempValue, int maxTempValue,
-            double rPosValue, double xPosValue, double yPosValue, double rZeroValue,
-            double xZeroValue, double yZeroValue, double impedanceUnits,
-            double ohmsPerLengthValue, double ohmsPerLengthUnit, string commentText)
-        { 
-            Cable data = new Cable{
-                ID = id,
-                OtiGUID = otiGuid,
-                PhaseValue = phaseValue, 
-                InService = inService, 
-                InServiceState = inServiceState, 
-                Description = description, 
-                Phase = phase, 
-                NumberOfWires = numberOfWires,
-                FromBus = fromBus, 
-                ToBus = toBus,
-                Frequency = frequency, 
-                CA_ConductorType = caConductorType, 
-                CA_Installation = caInstallation, 
-                CA_RatedkV = caRatedkV, 
-                CA_PercentClass = caPercentClass,
-                CA_Source = caSource, 
-                CA_Insulation = caInsulation,
-                CA_NoofConductors = caNoofConductors, 
-                CabSize = cabSize,
-                CA_Length = caLength, 
-                CA_UnitSystem = caUnitSystem,
-                CA_Temperature = caTemperature, 
-                CA_TemperatureCode = caTemperatureCode, 
-                LengthValue = lengthValue, 
-                CableLengthUnit = cableLengthUnit,
-                Tolerance = tolerance, 
-                MinTempValue = minTempValue, 
-                MaxTempValue = maxTempValue, 
-                RPosValue = rPosValue, 
-                XPosValue = xPosValue, 
-                YPosValue = yPosValue, 
-                RZeroValue = rZeroValue, 
-                XZeroValue = xZeroValue, 
-                YZeroValue = yZeroValue,
-                ImpedanceUnits = impedanceUnits, 
-                OhmsPerLengthValue = ohmsPerLengthValue, 
-                OhmsPerLengthUnit = ohmsPerLengthUnit, 
-                CommentText = commentText}
+        public IActionResult CreateCable(Cable cable)
+        {
+            Cable data = new Cable
+            {
+                ID = cable.ID,
+                OtiGUID = cable.OtiGUID,
+                PhaseValue = cable.PhaseValue,
+                InService = cable.InService,
+                InServiceState = cable.InServiceState,
+                Description = cable.Description,
+                Phase = cable.Phase,
+                NumberOfWires = cable.NumberOfWires,
+                FromBus = cable.FromBus,
+                ToBus = cable.ToBus,
+                Frequency = cable.Frequency,
+                CA_ConductorType = cable.CA_ConductorType,
+                CA_Installation = cable.CA_Installation,
+                CA_RatedkV = cable.CA_RatedkV,
+                CA_PercentClass = cable.CA_PercentClass,
+                CA_Source = cable.CA_Source,
+                CA_Insulation = cable.CA_Insulation,
+                CA_NoofConductors = cable.CA_NoofConductors,
+                CabSize = cable.CabSize,
+                CA_Length = cable.CA_Length,
+                CA_UnitSystem = cable.CA_UnitSystem,
+                CA_Temperature = cable.CA_Temperature,
+                CA_TemperatureCode = cable.CA_TemperatureCode,
+                LengthValue = cable.LengthValue,
+                CableLengthUnit = cable.CableLengthUnit,
+                Tolerance = cable.Tolerance,
+                MinTempValue = cable.MinTempValue,
+                MaxTempValue = cable.MaxTempValue,
+                RPosValue = cable.RPosValue,
+                XPosValue = cable.XPosValue,
+                YPosValue = cable.YPosValue,
+                RZeroValue = cable.RZeroValue,
+                XZeroValue = cable.XZeroValue,
+                YZeroValue = cable.YZeroValue,
+                ImpedanceUnits = cable.ImpedanceUnits,
+                OhmsPerLengthValue = cable.OhmsPerLengthValue,
+                OhmsPerLengthUnit = cable.OhmsPerLengthUnit,
+                CommentText = cable.CommentText,
+            }
             ;
             var sql = @"INSERT INTO dbo.Cable 
             (ID, OtiGUID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
@@ -135,17 +127,17 @@ namespace CableAPI.Controllers
                 SqlDataAccess.SaveData(sql, data);
                 return Ok("Cable created Successfully");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("An error occured while creating the cable: " + ex.Message);
             }
-            
+
         }
 
         [HttpPut("/UpdateCable/{id}")]
-        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable) 
+        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
         {
-                var sql = @"UPDATE dbo.Cable 
+            var sql = @"UPDATE dbo.Cable 
                     SET PhaseValue = @PhaseValue, 
                     InService = @InService, 
                     InServiceState = @InServiceState, 
@@ -183,47 +175,47 @@ namespace CableAPI.Controllers
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
                     CommentText = @CommentText,
                     WHERE ID = @ID;";
-                SqlDataAccess.SaveData(sql, new 
-                { 
-                    ID = updatedCable.ID,
-                    OtiGUID = updatedCable.OtiGUID,
-                    PhaseValue = updatedCable.PhaseValue,
-                    InService = updatedCable.InService,
-                    InServiceState = updatedCable.InServiceState,
-                    Description = updatedCable.Description,
-                    Phase = updatedCable.Phase,
-                    NumberOfWires = updatedCable.NumberOfWires,
-                    FromBus = updatedCable.FromBus,
-                    ToBus = updatedCable.ToBus,
-                    Frequency = updatedCable.Frequency,
-                    CA_ConductorType = updatedCable.CA_ConductorType,
-                    CA_Installation = updatedCable.CA_Installation,
-                    CA_RatedkV = updatedCable.CA_RatedkV,
-                    CA_PercentClass = updatedCable.CA_PercentClass,
-                    CA_Source = updatedCable.CA_Source,
-                    CA_Insulation = updatedCable.CA_Insulation,
-                    CA_NoofConductors = updatedCable.CA_NoofConductors,
-                    CabSize = updatedCable.CabSize,
-                    CA_Length = updatedCable.CA_Length,
-                    CA_UnitSystem = updatedCable.CA_UnitSystem,
-                    CA_Temperature = updatedCable.CA_Temperature,
-                    CA_TemperatureCode = updatedCable.CA_TemperatureCode,
-                    LengthValue = updatedCable.LengthValue,
-                    CableLengthUnit = updatedCable.CableLengthUnit,
-                    Tolerance = updatedCable.Tolerance,
-                    MinTempValue = updatedCable.MinTempValue,
-                    MaxTempValue = updatedCable.MaxTempValue,
-                    RPosValue = updatedCable.RPosValue,
-                    XPosValue = updatedCable.XPosValue,
-                    YPosValue = updatedCable.YPosValue,
-                    RZeroValue = updatedCable.RZeroValue,
-                    XZeroValue = updatedCable.XZeroValue,
-                    YZeroValue = updatedCable.YZeroValue,
-                    ImpedanceUnits = updatedCable.ImpedanceUnits,
-                    OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
-                    OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
-                    CommentText = updatedCable.CommentText,
-                });
+            SqlDataAccess.SaveData(sql, new
+            {
+                ID = updatedCable.ID,
+                OtiGUID = updatedCable.OtiGUID,
+                PhaseValue = updatedCable.PhaseValue,
+                InService = updatedCable.InService,
+                InServiceState = updatedCable.InServiceState,
+                Description = updatedCable.Description,
+                Phase = updatedCable.Phase,
+                NumberOfWires = updatedCable.NumberOfWires,
+                FromBus = updatedCable.FromBus,
+                ToBus = updatedCable.ToBus,
+                Frequency = updatedCable.Frequency,
+                CA_ConductorType = updatedCable.CA_ConductorType,
+                CA_Installation = updatedCable.CA_Installation,
+                CA_RatedkV = updatedCable.CA_RatedkV,
+                CA_PercentClass = updatedCable.CA_PercentClass,
+                CA_Source = updatedCable.CA_Source,
+                CA_Insulation = updatedCable.CA_Insulation,
+                CA_NoofConductors = updatedCable.CA_NoofConductors,
+                CabSize = updatedCable.CabSize,
+                CA_Length = updatedCable.CA_Length,
+                CA_UnitSystem = updatedCable.CA_UnitSystem,
+                CA_Temperature = updatedCable.CA_Temperature,
+                CA_TemperatureCode = updatedCable.CA_TemperatureCode,
+                LengthValue = updatedCable.LengthValue,
+                CableLengthUnit = updatedCable.CableLengthUnit,
+                Tolerance = updatedCable.Tolerance,
+                MinTempValue = updatedCable.MinTempValue,
+                MaxTempValue = updatedCable.MaxTempValue,
+                RPosValue = updatedCable.RPosValue,
+                XPosValue = updatedCable.XPosValue,
+                YPosValue = updatedCable.YPosValue,
+                RZeroValue = updatedCable.RZeroValue,
+                XZeroValue = updatedCable.XZeroValue,
+                YZeroValue = updatedCable.YZeroValue,
+                ImpedanceUnits = updatedCable.ImpedanceUnits,
+                OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
+                OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
+                CommentText = updatedCable.CommentText,
+            });
 
             return Ok("Update Successful");
         }
