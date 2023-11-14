@@ -177,3 +177,4 @@ C:\Users\salty\OneDrive\Desktop\DataDriven-ConduitDB\CableAPI\CableAPI\obj\Debug
 C:\Users\salty\OneDrive\Desktop\DataDriven-ConduitDB\CableAPI\CableAPI\obj\Debug\net6.0\CableAPI.genruntimeconfig.cache
 C:\Users\salty\OneDrive\Desktop\DataDriven-ConduitDB\CableAPI\CableAPI\obj\Debug\net6.0\ref\CableAPI.dll
 C:\Users\cdbdba\Source\Repos\DataDriven-ConduitDB\CableAPI\CableAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\salty\OneDrive\Desktop\DataDriven-ConduitDB\CableAPI\CableAPI\bin\Debug\net6.0\Newtonsoft.Json.dll

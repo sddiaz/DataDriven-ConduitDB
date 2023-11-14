@@ -12,7 +12,7 @@ namespace CableAPI.Controllers
         // Obtain Database Connection String via our Environment Variable
         public static string GetConnectionString()
         {
-            string? connectionString = "Server=ICTCDB1\\SQLEXPRESS;Database=ConduitDB;Trusted_Connection=True;TrustServerCertificate=True";
+            string? connectionString = "Server=SANTIAGOS_PC\\SQLEXPRESS;Database=ScheduleDB;Trusted_Connection=True;TrustServerCertificate=True";
 
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -33,18 +33,10 @@ namespace CableAPI.Controllers
                     var parameters = new { ID };
                     return connection.Query<T>(sql, parameters).ToList();
                 }
-                // Paginate Base Cables
+                // Return Base Cables
                 else
                 {
-                    // If ID is null, return all records
-                    string formattedJson = FormatInput(ID); 
-                    var parameters = JsonConvert.DeserializeAnonymousType(formattedJson, new
-                    {
-                        Start = default(int),
-                        PageSize = default(int)
-                    });
-
-                    return connection.Query<T>(sql, parameters).ToList();
+                    return connection.Query<T>(sql, null).ToList();
                 }
             }
         }

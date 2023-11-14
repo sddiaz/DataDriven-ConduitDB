@@ -18,25 +18,14 @@ namespace CableAPI.Controllers
         }
 
         [HttpGet("/GetCables")]
-        public IEnumerable<BaseCable> GetCables(int start)
+        public IEnumerable<BaseCable> GetCables()
         {
-            // Number of rows to fetch
-            int pageSize = 10; // Adjust as needed
 
             var sql = @"
             SELECT ID, OtiGUID, FromBus, ToBus   
-            FROM dbo.Cable 
-            ORDER BY ID 
-            OFFSET @Start ROWS 
-            FETCH NEXT @PageSize ROWS ONLY;";
+            FROM dbo.Cable;";
 
-            var parameters = new
-            {
-                Start = start,
-                PageSize = pageSize
-            };
-
-            return SqlDataAccess.LoadData<BaseCable>(sql, parameters.ToString());
+            return SqlDataAccess.LoadData<BaseCable>(sql, null);
         }
 
         [HttpGet("/GetCable/{ID}")]
