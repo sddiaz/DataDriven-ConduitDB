@@ -12,7 +12,7 @@ namespace CableAPI.Controllers
         // Obtain Database Connection String via our Environment Variable
         public static string GetConnectionString()
         {
-            string? connectionString = "Server=SANTIAGOS_PC\\SQLEXPRESS;Database=ScheduleDB;Trusted_Connection=True;TrustServerCertificate=True";
+            string? connectionString = "Server=ICTCDB1\\SQLEXPRESS;Database=ConduitDB;Trusted_Connection=True;TrustServerCertificate=True";
 
             if (string.IsNullOrEmpty(connectionString))
             {

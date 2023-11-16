@@ -1,7 +1,11 @@
 using CableAPI.Models;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Cryptography;
 
 namespace CableAPI.Controllers
@@ -22,7 +26,7 @@ namespace CableAPI.Controllers
         {
 
             var sql = @"
-            SELECT ID, OtiGUID, FromBus, ToBus   
+            SELECT ID, OtiGUID, FromBus, ToBus, Created_Date   
             FROM dbo.Cable;";
 
             return SqlDataAccess.LoadData<BaseCable>(sql, null);
@@ -123,7 +127,7 @@ namespace CableAPI.Controllers
 
         }
 
-        [HttpPut("/UpdateCable/{id}")]
+        [HttpPut("/UpdateCable/{ID}")]
         public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
         {
             var sql = @"UPDATE dbo.Cable 
@@ -209,19 +213,30 @@ namespace CableAPI.Controllers
             return Ok("Update Successful");
         }
 
-        [HttpDelete("/DeleteCable/{id}")]
-        public IActionResult DeleteCable(string id)
+        [HttpGet("/DeleteCable")]
+        public IActionResult DeleteCable(string ID)
         {
+            string connectionString = SqlDataAccess.GetConnectionString();
             string sql = @"DELETE FROM dbo.Cable WHERE ID = @ID;";
-            int rowsAffected = SqlDataAccess.SaveData(sql, new { ID = id });
 
-            if (rowsAffected > 0)
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                return Ok($"Cable with ID: {id} was deleted successfully.");
-            }
-            else
-            {
-                return NotFound("Cable with the specified ID was not found.");
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", ID);
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return Ok("Record deleted successfully");
+                    }
+                    else
+                    {
+                        return NotFound("Record not found");
+                    }
+                }
             }
         }
     }
