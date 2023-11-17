@@ -96,8 +96,7 @@ namespace CableAPI.Controllers
                 OhmsPerLengthValue = cable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = cable.OhmsPerLengthUnit,
                 CommentText = cable.CommentText,
-            }
-            ;
+            };
             if (cable.Created_Date != null ) data.Created_Date = cable.Created_Date;
 
             var sql = @"INSERT INTO dbo.Cable 
@@ -129,7 +128,7 @@ namespace CableAPI.Controllers
 
         }
 
-        [HttpPut("/UpdateCable/{ID}")]
+        [HttpPost("/UpdateCable/{ID}")]
         public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
         {
             var sql = @"UPDATE dbo.Cable 
@@ -169,7 +168,7 @@ namespace CableAPI.Controllers
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
                     CommentText = @CommentText,
-                    Created_Date = @Created_Date, 
+                    Created_Date = @Created_Date
                     WHERE ID = @ID;";
             SqlDataAccess.SaveData(sql, new
             {
@@ -211,7 +210,7 @@ namespace CableAPI.Controllers
                 OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
                 CommentText = updatedCable.CommentText,
-                CreatedDate = updatedCable.Created_Date != DateTime.Now ? updatedCable.Created_Date : DateTime.Now,
+                Created_Date = updatedCable.Created_Date != DateTime.Now ? updatedCable.Created_Date : DateTime.Now
             });
 
             return Ok("Update Successful");
