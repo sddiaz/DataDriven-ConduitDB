@@ -98,6 +98,8 @@ namespace CableAPI.Controllers
                 CommentText = cable.CommentText,
             }
             ;
+            if (cable.Created_Date != null ) data.Created_Date = cable.Created_Date;
+
             var sql = @"INSERT INTO dbo.Cable 
             (ID, OtiGUID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
             FromBus, ToBus, Frequency, CA_ConductorType, CA_Installation, CA_RatedkV, 
@@ -105,7 +107,7 @@ namespace CableAPI.Controllers
             CA_Length, CA_UnitSystem, CA_Temperature, CA_TemperatureCode, LengthValue, 
             CableLengthUnit, Tolerance, MinTempValue, MaxTempValue, RPosValue, XPosValue, 
             YPosValue, RZeroValue, XZeroValue, YZeroValue, ImpedanceUnits, 
-            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText) 
+            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText, Created_Date) 
             VALUES 
             (@ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
             @FromBus, @ToBus, @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
@@ -113,7 +115,7 @@ namespace CableAPI.Controllers
             @CA_Length, @CA_UnitSystem, @CA_Temperature, @CA_TemperatureCode, @LengthValue, 
             @CableLengthUnit, @Tolerance, @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, 
             @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
-            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText);";
+            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText, @Created_Date);";
 
             try
             {
@@ -167,6 +169,7 @@ namespace CableAPI.Controllers
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
                     CommentText = @CommentText,
+                    Created_Date = @Created_Date, 
                     WHERE ID = @ID;";
             SqlDataAccess.SaveData(sql, new
             {
@@ -208,6 +211,7 @@ namespace CableAPI.Controllers
                 OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
                 CommentText = updatedCable.CommentText,
+                CreatedDate = updatedCable.Created_Date != DateTime.Now ? updatedCable.Created_Date : DateTime.Now,
             });
 
             return Ok("Update Successful");

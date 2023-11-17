@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VAWj/igVq6+tCLVmf0jJbwLC8LLlV8Z6fdyy1RXnP+xSuQVGru985W14u1BnGrkn6qGetwqhj0U5kFh4iQOXgQ==",
+  "dgSpecHash": "MQVoOLuGon3FUf1T2H0guugDl8ZO1SQOq/SQxJpRKAaM6gtmbMCn5PsDU+j1dkBizJTUBV9s2dWTzPt3zz9WXw==",
   "success": true,
   "projectFilePath": "C:\\Users\\cdbdba\\Source\\Repos\\DataDriven-ConduitDB\\CableAPI\\CableAPI\\CableAPI.csproj",
   "expectedPackageFiles": [
@@ -63,8 +63,7 @@
     "C:\\Users\\cdbdba\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\cdbdba\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\6.0.22\\microsoft.netcore.app.runtime.win-x86.6.0.22.nupkg.sha512",
     "C:\\Users\\cdbdba\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\6.0.22\\microsoft.windowsdesktop.app.runtime.win-x86.6.0.22.nupkg.sha512",
-    "C:\\Users\\cdbdba\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.22\\microsoft.aspnetcore.app.runtime.win-x86.6.0.22.nupkg.sha512",
-    "C:\\Users\\cdbdba\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.22\\microsoft.netcore.app.crossgen2.win-x64.6.0.22.nupkg.sha512"
+    "C:\\Users\\cdbdba\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.22\\microsoft.aspnetcore.app.runtime.win-x86.6.0.22.nupkg.sha512"
   ],
   "logs": []
 }
