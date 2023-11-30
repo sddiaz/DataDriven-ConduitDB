@@ -95,6 +95,7 @@ namespace CableAPI.Controllers
                 ImpedanceUnits = cable.ImpedanceUnits,
                 OhmsPerLengthValue = cable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = cable.OhmsPerLengthUnit,
+                GroundWireSize = cable.GroundWireSize,
                 CommentText = cable.CommentText,
             }
             ;
@@ -105,7 +106,7 @@ namespace CableAPI.Controllers
             CA_Length, CA_UnitSystem, CA_Temperature, CA_TemperatureCode, LengthValue, 
             CableLengthUnit, Tolerance, MinTempValue, MaxTempValue, RPosValue, XPosValue, 
             YPosValue, RZeroValue, XZeroValue, YZeroValue, ImpedanceUnits, 
-            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText) 
+            OhmsPerLengthValue, OhmsPerLengthUnit, GroundWireSize, CommentText) 
             VALUES 
             (@ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
             @FromBus, @ToBus, @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
@@ -113,7 +114,7 @@ namespace CableAPI.Controllers
             @CA_Length, @CA_UnitSystem, @CA_Temperature, @CA_TemperatureCode, @LengthValue, 
             @CableLengthUnit, @Tolerance, @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, 
             @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
-            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText);";
+            @OhmsPerLengthValue, @OhmsPerLengthUnit, @GroundWireSize, @CommentText);";
 
             try
             {
@@ -166,6 +167,7 @@ namespace CableAPI.Controllers
                     ImpedanceUnits = @ImpedanceUnits, 
                     OhmsPerLengthValue = @OhmsPerLengthValue, 
                     OhmsPerLengthUnit = @OhmsPerLengthUnit, 
+                    GroundWireSize = @GroundWireSize, 
                     CommentText = @CommentText,
                     WHERE ID = @ID;";
             SqlDataAccess.SaveData(sql, new
@@ -207,6 +209,7 @@ namespace CableAPI.Controllers
                 ImpedanceUnits = updatedCable.ImpedanceUnits,
                 OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
+                GroundWireSize = updatedCable.GroundWireSize,
                 CommentText = updatedCable.CommentText,
             });
 
