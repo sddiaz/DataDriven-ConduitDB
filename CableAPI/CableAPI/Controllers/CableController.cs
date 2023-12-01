@@ -1,5 +1,4 @@
 using CableAPI.Models;
-using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -77,6 +76,7 @@ namespace CableAPI.Controllers
                 CA_Insulation = cable.CA_Insulation,
                 CA_NoofConductors = cable.CA_NoofConductors,
                 CabSize = cable.CabSize,
+                CableSize = cable.CableSize,
                 CA_Length = cable.CA_Length,
                 CA_UnitSystem = cable.CA_UnitSystem,
                 CA_Temperature = cable.CA_Temperature,
@@ -95,26 +95,29 @@ namespace CableAPI.Controllers
                 ImpedanceUnits = cable.ImpedanceUnits,
                 OhmsPerLengthValue = cable.OhmsPerLengthValue,
                 OhmsPerLengthUnit = cable.OhmsPerLengthUnit,
+                GroundWireSize = cable.GroundWireSize,
                 CommentText = cable.CommentText,
+                CableVoltage = cable.CableVoltage,
+                VoltageLevel = cable.VoltageLevel
             };
             if (cable.Created_Date != null ) data.Created_Date = cable.Created_Date;
 
             var sql = @"INSERT INTO dbo.Cable 
             (ID, OtiGUID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
             FromBus, ToBus, Frequency, CA_ConductorType, CA_Installation, CA_RatedkV, 
-            CA_PercentClass, CA_Source, CA_Insulation, CA_NoofConductors, CabSize, 
+            CA_PercentClass, CA_Source, CA_Insulation, CA_NoofConductors, CabSize, CableSize,
             CA_Length, CA_UnitSystem, CA_Temperature, CA_TemperatureCode, LengthValue, 
             CableLengthUnit, Tolerance, MinTempValue, MaxTempValue, RPosValue, XPosValue, 
             YPosValue, RZeroValue, XZeroValue, YZeroValue, ImpedanceUnits, 
-            OhmsPerLengthValue, OhmsPerLengthUnit, CommentText, Created_Date) 
+            OhmsPerLengthValue, OhmsPerLengthUnit, GroundWireSize, CommentText, CableVoltage, VoltageLevel, Created_Date) 
             VALUES 
             (@ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
             @FromBus, @ToBus, @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
-            @CA_PercentClass, @CA_Source, @CA_Insulation, @CA_NoofConductors, @CabSize, 
+            @CA_PercentClass, @CA_Source, @CA_Insulation, @CA_NoofConductors, @CabSize, @CableSize,
             @CA_Length, @CA_UnitSystem, @CA_Temperature, @CA_TemperatureCode, @LengthValue, 
             @CableLengthUnit, @Tolerance, @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, 
             @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
-            @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText, @Created_Date);";
+            @OhmsPerLengthValue, @OhmsPerLengthUnit, @GroundWireSize, @CommentText, @CableVoltage, @VoltageLevel, @Created_Date);";
 
             try
             {
@@ -149,6 +152,7 @@ namespace CableAPI.Controllers
                     CA_Insulation = @CA_Insulation, 
                     CA_NoofConductors = @CA_NoofConductors, 
                     CabSize = @CabSize, 
+                    CableSize = @CableSize, 
                     CA_Length = @CA_Length, 
                     CA_UnitSystem = @CA_UnitSystem, 
                     CA_Temperature = @CA_Temperature, 
@@ -191,6 +195,7 @@ namespace CableAPI.Controllers
                 CA_Insulation = updatedCable.CA_Insulation,
                 CA_NoofConductors = updatedCable.CA_NoofConductors,
                 CabSize = updatedCable.CabSize,
+                CableSize = updatedCable.CableSize,
                 CA_Length = updatedCable.CA_Length,
                 CA_UnitSystem = updatedCable.CA_UnitSystem,
                 CA_Temperature = updatedCable.CA_Temperature,
