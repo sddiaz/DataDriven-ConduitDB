@@ -98,26 +98,31 @@ namespace CableAPI.Controllers
                 GroundWireSize = cable.GroundWireSize,
                 CommentText = cable.CommentText,
                 CableVoltage = cable.CableVoltage,
-                VoltageLevel = cable.VoltageLevel
-            };
+                VoltageLevel = cable.VoltageLevel,
+                WireConnection = cable.WireConnection,
+                CableNumber = cable.CableNumber,
+                LoadValue = cable.LoadValue,
+                LibraryLengthUnit = cable.LibraryLengthUnit,
+                LibraryLength = cable.LibraryLength,
+                State = cable.State
+        };
             if (cable.Created_Date != null ) data.Created_Date = cable.Created_Date;
 
-            var sql = @"INSERT INTO dbo.Cable 
-            (ID, OtiGUID, PhaseValue, InService, InServiceState, Description, Phase, NumberOfWires, 
-            FromBus, ToBus, Frequency, CA_ConductorType, CA_Installation, CA_RatedkV, 
-            CA_PercentClass, CA_Source, CA_Insulation, CA_NoofConductors, CabSize, CableSize,
-            CA_Length, CA_UnitSystem, CA_Temperature, CA_TemperatureCode, LengthValue, 
-            CableLengthUnit, Tolerance, MinTempValue, MaxTempValue, RPosValue, XPosValue, 
-            YPosValue, RZeroValue, XZeroValue, YZeroValue, ImpedanceUnits, 
-            OhmsPerLengthValue, OhmsPerLengthUnit, GroundWireSize, CommentText, CableVoltage, VoltageLevel, Created_Date) 
-            VALUES 
-            (@ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, @Description, @Phase, @NumberOfWires, 
-            @FromBus, @ToBus, @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
-            @CA_PercentClass, @CA_Source, @CA_Insulation, @CA_NoofConductors, @CabSize, @CableSize,
-            @CA_Length, @CA_UnitSystem, @CA_Temperature, @CA_TemperatureCode, @LengthValue, 
-            @CableLengthUnit, @Tolerance, @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, 
-            @YPosValue, @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
-            @OhmsPerLengthValue, @OhmsPerLengthUnit, @GroundWireSize, @CommentText, @CableVoltage, @VoltageLevel, @Created_Date);";
+            var sql = @"INSERT INTO dbo.Cable
+                          VALUES (
+                              @ID, @OtiGUID, @PhaseValue, @InService, @InServiceState, 
+                              @Description, @Phase, @NumberOfWires, @FromBus, @ToBus, 
+                              @Frequency, @CA_ConductorType, @CA_Installation, @CA_RatedkV, 
+                              @CA_PercentClass, @CA_Source, @CA_Insulation, @CA_NoofConductors, 
+                              @CabSize, @CA_Length, @CA_UnitSystem, @CA_Temperature, 
+                              @CA_TemperatureCode, @LengthValue, @CableLengthUnit, @Tolerance, 
+                              @MinTempValue, @MaxTempValue, @RPosValue, @XPosValue, @YPosValue, 
+                              @RZeroValue, @XZeroValue, @YZeroValue, @ImpedanceUnits, 
+                              @OhmsPerLengthValue, @OhmsPerLengthUnit, @CommentText, 
+                              @CableVoltage, @Created_Date, @CableNumber, @LoadValue, 
+                              @LibraryLengthUnit, @LibraryLength, @State, @GroundWireSize, 
+                              @CableSize, @VoltageLevel, @WireConnection
+                          )";
 
             try
             {
@@ -129,96 +134,6 @@ namespace CableAPI.Controllers
                 throw new ApplicationException("An error occured while creating the cable: " + ex.Message);
             }
 
-        }
-
-        [HttpPost("/UpdateCable/{ID}")]
-        public IActionResult UpdateCable(string ID, [FromBody] Cable updatedCable)
-        {
-            var sql = @"UPDATE dbo.Cable 
-                    SET PhaseValue = @PhaseValue, 
-                    InService = @InService, 
-                    InServiceState = @InServiceState, 
-                    Description = @Description, 
-                    Phase = @Phase, 
-                    NumberOfWires = @NumberOfWires,
-                    FromBus = @FromBus, 
-                    ToBus = @ToBus, 
-                    Frequency = @Frequency, 
-                    CA_ConductorType = @CA_ConductorType, 
-                    CA_Installation = @CA_Installation, 
-                    CA_RatedkV = @CA_RatedkV, 
-                    CA_PercentClass = @CA_PercentClass, 
-                    CA_Source = @CA_Source, 
-                    CA_Insulation = @CA_Insulation, 
-                    CA_NoofConductors = @CA_NoofConductors, 
-                    CabSize = @CabSize, 
-                    CableSize = @CableSize, 
-                    CA_Length = @CA_Length, 
-                    CA_UnitSystem = @CA_UnitSystem, 
-                    CA_Temperature = @CA_Temperature, 
-                    CA_TemperatureCode = @CA_TemperatureCode, 
-                    LengthValue = @LengthValue, 
-                    CableLengthUnit = @CableLengthUnit, 
-                    Tolerance = @Tolerance, 
-                    MinTempValue = @MinTempValue, 
-                    MaxTempValue = @MaxTempValue,
-                    RPosValue = @RPosValue, 
-                    XPosValue = @XPosValue, 
-                    YPosValue = @YPosValue, 
-                    RZeroValue = @RZeroValue,
-                    XZeroValue = @XZeroValue, 
-                    YZeroValue = @YZeroValue, 
-                    ImpedanceUnits = @ImpedanceUnits, 
-                    OhmsPerLengthValue = @OhmsPerLengthValue, 
-                    OhmsPerLengthUnit = @OhmsPerLengthUnit, 
-                    CommentText = @CommentText,
-                    Created_Date = @Created_Date
-                    WHERE ID = @ID;";
-            SqlDataAccess.SaveData(sql, new
-            {
-                ID = updatedCable.ID,
-                OtiGUID = updatedCable.OtiGUID,
-                PhaseValue = updatedCable.PhaseValue,
-                InService = updatedCable.InService,
-                InServiceState = updatedCable.InServiceState,
-                Description = updatedCable.Description,
-                Phase = updatedCable.Phase,
-                NumberOfWires = updatedCable.NumberOfWires,
-                FromBus = updatedCable.FromBus,
-                ToBus = updatedCable.ToBus,
-                Frequency = updatedCable.Frequency,
-                CA_ConductorType = updatedCable.CA_ConductorType,
-                CA_Installation = updatedCable.CA_Installation,
-                CA_RatedkV = updatedCable.CA_RatedkV,
-                CA_PercentClass = updatedCable.CA_PercentClass,
-                CA_Source = updatedCable.CA_Source,
-                CA_Insulation = updatedCable.CA_Insulation,
-                CA_NoofConductors = updatedCable.CA_NoofConductors,
-                CabSize = updatedCable.CabSize,
-                CableSize = updatedCable.CableSize,
-                CA_Length = updatedCable.CA_Length,
-                CA_UnitSystem = updatedCable.CA_UnitSystem,
-                CA_Temperature = updatedCable.CA_Temperature,
-                CA_TemperatureCode = updatedCable.CA_TemperatureCode,
-                LengthValue = updatedCable.LengthValue,
-                CableLengthUnit = updatedCable.CableLengthUnit,
-                Tolerance = updatedCable.Tolerance,
-                MinTempValue = updatedCable.MinTempValue,
-                MaxTempValue = updatedCable.MaxTempValue,
-                RPosValue = updatedCable.RPosValue,
-                XPosValue = updatedCable.XPosValue,
-                YPosValue = updatedCable.YPosValue,
-                RZeroValue = updatedCable.RZeroValue,
-                XZeroValue = updatedCable.XZeroValue,
-                YZeroValue = updatedCable.YZeroValue,
-                ImpedanceUnits = updatedCable.ImpedanceUnits,
-                OhmsPerLengthValue = updatedCable.OhmsPerLengthValue,
-                OhmsPerLengthUnit = updatedCable.OhmsPerLengthUnit,
-                CommentText = updatedCable.CommentText,
-                Created_Date = updatedCable.Created_Date != DateTime.Now ? updatedCable.Created_Date : DateTime.Now
-            });
-
-            return Ok("Update Successful");
         }
 
         [HttpGet("/DeleteCable")]
